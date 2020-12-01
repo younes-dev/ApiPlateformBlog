@@ -1,0 +1,71 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: "3.1"
+services:
+
+  ##########################################
+  #                php Image               #
+  ##########################################
+  php-fpm:
+    build: phpdocker/php-fpm
+    container_name: ApiPlateformBlog-php-fpm
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.4/fpm/conf.d/99-overrides.ini
+
+  ##########################################
+  #               nginx Image              #
+  ##########################################
+  webserver:
+    image: nginx:alpine
+    container_name: ApiPlateformBlog-webserver
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+  #        - ${APP_PORT}:80
+
+
+  ##########################################
+  #              mariadb Image             #
+  ##########################################
+  mariadb:
+    image: mariadb:10.4
+    container_name: ApiPlateformBlog-mariadb
+    working_dir: /application
+#    volumes:
+#      - .:/application
+    volumes:
+      -  /application:/var/lib/mysql:rw
+#      - ./Data:/var/lib/mysql/ApiPlateformBlog.sql
+#        # this will run all .sh, .sql and .sql.gz files found
+      - ./Data:/docker-entrypoint-initdb.d/:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=ApiPlateformBlog
+      - MYSQL_USER= root
+      - MYSQL_PASSWORD=
+    ports:
+      - "3307:3306"
+
+  ##########################################
+  #            postgresdb Image            #
+  ##########################################
+#  https://www:youtube:com/watch?v=69wjRPQ0A_U:
+#  https://github.com/Cap-Coding/symfony_docker/blob/master/docker-compose.yml
+#  postgres:
+#    image: postgres:12.4-alpine
+#    restart: on-failure
+#    environment:
+#      POSTGRES_DB: test
+#      POSTGRES_USER: sf_user
+#      POSTGRES_PASSWORD: random_password
+#      PGDATA: /var/lib/postgresql/data
+#    volumes:
+#      - db-data:/var/lib/postgresql/data:rw
+#    ports:
+#      - "5432:5432"

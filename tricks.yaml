@@ -1,0 +1,42 @@
+<?php
+//***************************************
+// Docker CMD
+//***************************************
+ $ sudo chmod -R 777 /var/run/docker.sock
+ $ sudo systemctl start docker
+ $ sudo docker-compose build
+ $ sudo docker-compose up
+
+ sudo docker exec -it ApiPlateformBlog-php-fpm bash
+ sudo docker exec -it ApiPlateformBlog-php-fpm bash
+
+//***************************************
+// extension php search
+//***************************************
+  php -i|grep PDO
+  php -r 'phpinfo();' | grep -i pdo
+//*********************************
+// Symfony components installed to start the project
+//**********************************
+
+  composer require symfony/orm-pack
+  composer require api
+  composer require migrations
+  composer require make --dev
+  composer require orm-fixtures --dev
+  composer require test --dev
+  composer require fzaninotto/faker --dev
+//**********************************
+// permisssion symfony
+//**********************************
+  https://stackoverflow.com/a/54393302
+  https://www.thegeekdiary.com/run-docker-as-a-non-root-user/
+  https://net2.com/how-to-create-new-users-in-docker-container/
+  https://stackoverflow.com/a/49848507
+
+//**********************************
+
+// SqlLite Docker
+//**********************************
+  https://github.com/thomasleveil/docker-sqliteweb
+  https://devopsheaven.com/sqlite/backup/restore/dump/databases/docker/2017/10/10/sqlite-backup-restore-docker.html
