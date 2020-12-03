@@ -53,6 +53,36 @@ services:
       - "3307:3306"
 
   ##########################################
+  #             adminer Image              #
+  ##########################################
+  # adminer database interface (official image)
+  # https://hub.docker.com/_/adminer
+  #  https://medium.com/@yusufbiberoglu/symfony-search-engine-with-elasticsearch-9900cee18ec7
+  adminer:
+    image: adminer
+    container_name: ApiPlateformBlog-adminer
+    depends_on:
+      - mariadb
+    ports:
+      - "8089:8080"
+
+  ##########################################
+  #            phpmyadmin Image            #
+  ##########################################
+  #  https://github.com/fuadajip/dockercompose-mysql-phpmyadmin/blob/master/docker-compose.yml
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: ApiPlateformBlog-phpmyadmin
+    links:
+      - mariadb
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
+    ports:
+      - 8183:80
+  ##########################################
   #            postgresdb Image            #
   ##########################################
 #  https://www:youtube:com/watch?v=69wjRPQ0A_U:
