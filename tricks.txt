@@ -24,8 +24,9 @@
   composer require migrations
   composer require make --dev
   composer require orm-fixtures --dev
-  composer require test --dev
   composer require fzaninotto/faker --dev
+  composer require test --dev
+  bin/phpunit
 //**********************************
 // permisssion symfony
 //**********************************
